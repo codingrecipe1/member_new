@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>save</title>
+</head>
+<body>
+<!-- action속성: form에 작성한 데이터를 어디로 보낼지 지정 -->
+<form action="/member/save" method="post">
+    <!-- name속성: 서버로 전송할 때 변수이름의 역할 -->
+    이메일: <input type="text" name="memberEmail"> <br>
+    비밀번호: <input type="password" name="memberPassword"> <br>
+    이름: <input type="text" name="memberName"> <br>
+    <input type="submit" value="회원가입">
+</form>
+</body>
+</html>
