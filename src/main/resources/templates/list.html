@@ -21,6 +21,8 @@
     <td th:text="${member.memberPassword}"></td>
     <td th:text="${member.memberName}"></td>
     <td>
+      <!-- query string /member?id=1
+          rest api /member/1 -->
       <a th:href="@{|/member/${member.id}|}">조회</a>
     </td>
     <td>
