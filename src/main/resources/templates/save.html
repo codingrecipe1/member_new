@@ -1,17 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>save</title>
+    <!-- jquery cdn -->
+    <script
+            src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <!-- action속성: form에 작성한 데이터를 어디로 보낼지 지정 -->
 <form action="/member/save" method="post">
     <!-- name속성: 서버로 전송할 때 변수이름의 역할 -->
-    이메일: <input type="text" name="memberEmail"> <br>
+    이메일: <input type="text" name="memberEmail" id="memberEmail" onblur="emailCheck()"> <br>
+    <p id="check-result"></p>
     비밀번호: <input type="password" name="memberPassword"> <br>
     이름: <input type="text" name="memberName"> <br>
     <input type="submit" value="회원가입">
+
 </form>
 </body>
+<script th:inline="javascript">
+    const emailCheck = () => {
+        const email = document.getElementById("memberEmail").value;
+        const checkResult = document.getElementById("check-result");
+        console.log("입력값: ", email);
+        $.ajax({
+            // 요청방식: post, url: "email-check", 데이터: 이메일
+            type: "post",
+            url: "/member/email-check",
+            data: {
+                "memberEmail": email
+            },
+            success: function(res) {
+                console.log("요청성공", res);
+                if (res == "ok") {
+                    console.log("사용가능한 이메일");
+                    checkResult.style.color = "green";
+                    checkResult.innerHTML = "사용가능한 이메일";
+                } else {
+                    console.log("이미 사용중인 이메일");
+                    checkResult.style.color = "red";
+                    checkResult.innerHTML = "이미 사용중인 이메일";
+                }
+            },
+            error: function(err) {
+                console.log("에러발생", err);
+            }
+        });
+    }
+</script>
 </html>
+
+
+
+
+
+
+
+
+
+
